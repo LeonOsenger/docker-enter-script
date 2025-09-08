@@ -17,7 +17,7 @@ interactive_mode() {
     containers=$(docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}")
     
     # Check if any containers are running
-    container_count=$(docker ps -q | wc -l)
+    container_count=$(docker ps -q | wc -l | awk '{print $1}')
     if [[ $container_count -eq 0 ]]; then
         echo "No running Docker containers found."
         exit 1
@@ -25,11 +25,10 @@ interactive_mode() {
     
     echo
     echo "Running Docker containers:"
-    echo "------------------------"
+    echo "---------------------------"
     
     # Display containers with numbers 1-N
-    echo "   #  NAMES$(printf '%*s' 15 '')IMAGE$(printf '%*s' 25 '')STATUS"
-    docker ps --format "{{.Names}}\t{{.Image}}\t{{.Status}}" | nl -v1 -s' ' | sed 's/^/     /'
+    docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Status}}" | column -t -s $'\t' | awk 'NR==1{print "  #  "$0; next} {printf "  %d  %s\n", NR-1, $0}'
     
     echo
     echo -n "Enter the number of the container you want to connect to (1-${container_count}): "
