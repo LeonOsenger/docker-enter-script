@@ -1,4 +1,4 @@
-# 🐳 docker-enter-script
+# docker-enter-script
 A small and handy script that helps you quickly open a Bash shell inside a running Docker container.
 You can connect by:
 
@@ -6,11 +6,11 @@ You can connect by:
 - **Image name**
 - **Interactive selection** from a list of running containers
 
-# 📦 Requirements
+# Requirements
 - **Bash shell**
 - **Docker installed and running**
 
-# 🚀 Usage
+# Usage
 ### Make the script executable:
 ```bash
 chmod +x docker-shell.sh
@@ -45,14 +45,14 @@ To see usage instructions:
 ./docker-shell.sh --help
 ```
 
-# 📝 Notes
+# Notes
 - The script connects using:
 `docker exec -it <container> bash`
 So the container must have **Bash installed**.
 - If multiple containers match (by image or name), the **first** one listed by `docker` ps is used.
 - In **interactive mode**, you’ll see a numbered list with container name, image, and status to choose from.
 
-# ✅ Example
+# Example
 ```bash
 # List running containers and choose one
 ./docker-shell.sh
